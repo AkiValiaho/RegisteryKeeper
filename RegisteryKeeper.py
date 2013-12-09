@@ -2,9 +2,9 @@ from dumper import dumpdictionary,loaddictionary
 from henkilo import henkilo
 
 def main():
+    listofnames = loaddictionary()
     while True:
         file = 'thefile.txt'
-        listofnames = loaddictionary()
         if listofnames == False:
             print("No names on your list, would you like to add?")
         print("Press 1 to add a name to the list")
@@ -15,9 +15,19 @@ def main():
             dumpdictionary(listofnames)
         elif valinta == 2:
             for i in listofnames:
-                print(i.__str__())
+                print(listofnames[i].__str__())
         elif valinta == 3:
-            pass
+            sname = input("Input the name you wish to search for.")
+            if sname in listofnames:
+                print("Found info for {0}".format(sname))
+                print("Number: {0}, Address: {1}".format(listofnames[sname].get_puhelinnumero(), listofnames[sname].get_osoite()))
+            else:
+                print("The name was not found")
+        elif valinta == 4:
+            sname = input("Input name of a person whose details you would like to change")
+            if sname in listofnames:
+                listofnames[sname].set_osoite(input("Input the persons new address"))
+
 
 main()
 

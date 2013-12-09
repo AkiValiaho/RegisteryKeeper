@@ -12,8 +12,8 @@ class henkilo():
     def set_puhelinnumero(self, puhelinnumero):
         self.puhelinnumero = puhelinnumero
     def get_osoite(self):
-        return osoite
-    def set_osoite(self):
+        return self.osoite
+    def set_osoite(self,osoite):
         self.osoite = osoite
     def __str__(self):
         return 'Nimi {0}, Osoite {1}, Puhelinnumero {1}'.format(self.get_name(), self.get_puhelinnumero(),self.get_osoite)
