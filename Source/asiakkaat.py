@@ -1,19 +1,6 @@
-#asiakkaat-file
 
-class default:
-    def __init__(self, name, sex, JobPosition):
-        self.__name = name
-        self.__sex = sex
-        self.__JobPosition = JobPosition
-    def get__name(self):
-        return self.__name
-    def get__sex(self):
-        return self.__sex
-    def get__JobPosition(self):
-        return self.__JobPosition
 
 class asiakkaat:
-    #Tässä voisi miettiä jos periyttäisi vaikka jonkun noista ominaisuuksista tuolta superclassilta?
     def __init__(self,nimi, osasto, toimi):
         self.__nimi = nimi
         self.__osasto = osasto
