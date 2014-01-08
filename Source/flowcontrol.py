@@ -3,7 +3,6 @@ import dumper
 
 def flowcontrol(choice, nimilista):
     if choice == 2:
-        #Tehd‰‰n uusi asiakkaat-olio
         asiakas = asiakkaat(input("Input customers name: "),input("Did the customer have a membership card? "), input("Last visit: "))
         if nimilista != None:
             if asiakas.get__nimi() in nimilista:

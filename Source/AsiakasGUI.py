@@ -1,7 +1,6 @@
-import tkinter
-
+import tkinter,flowcontrol,dumper
 class AsiakasGUI:
-    def __init__(self):
+    def __init__(self,nimilista):
         #Konstruktori
         self.mainwindow = tkinter.Tk()
         #Tässä käynnistetään tkinter-moduulilla ohjelman käyttöliittymän pääikkuna
@@ -12,6 +11,22 @@ class AsiakasGUI:
         #Luodaan ensin variable
         self.radiovalinta = tkinter.IntVar()
         self.radiovalinta.set(0)
+        #Luodaan listboxi, johon conffataan erikseen scrollbar
+        listbox = tkinter.Listbox(self.mainwindow)
+        listbox.pack()
+        scrollbar = tkinter.Scrollbar(self.mainwindow)
+        scrollbar.pack(side='right', fill='y' )
+        #Testaus
+        
+        for i in nimilista:
+            listbox.insert('end',i)
+        #Yhdistetään sitten scrollbar toimimaan listboxin kanssa
+        listbox.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=listbox.yview)
+        
+        
+
+
         #Luodaan BUTTONIT-niminen tietorakenne, jossa moniulotteisia alkioita
         BUTTONIT = [("Listaa kaikki asiakkaat", 1), ("Lisää asiakas listaan",2),("Muokkaa listalla olevaa asiakasta",3),("Poista asiakkaan tiedot listalta",4),
                     ("Etsi asiakasta listalta", 5),("Sulje ohjelma ja tallenna tiedot",6)
@@ -23,6 +38,7 @@ class AsiakasGUI:
         #Tehdään metodi, jolla voidaan palauttaa pääohjelmaan radiovalinta-muuttujan senhetkinen arvo
         def get__radiovalinta(self):
             return self.radiovalinta
+
 
         #Tkinter-moduulin päälooppi
         tkinter.mainloop()

@@ -3,9 +3,9 @@ from AsiakasGUI import AsiakasGUI
 #Tässä kaikki importit
 
 def main():
-    asiakasgui = AsiakasGUI()
     nimilista = {}
     nimilista = dumper.load()
+    asiakasgui = AsiakasGUI(nimilista)
     flag1 = True
     while flag1 == True:
         flag2 = True
