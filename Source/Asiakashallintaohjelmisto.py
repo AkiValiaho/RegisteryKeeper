@@ -1,7 +1,9 @@
 import flowcontrol,dumper,os
+from AsiakasGUI import AsiakasGUI
 #Tässä kaikki importit
 
 def main():
+    asiakasgui = AsiakasGUI()
     nimilista = {}
     nimilista = dumper.load()
     flag1 = True
