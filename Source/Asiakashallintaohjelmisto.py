@@ -1,11 +1,9 @@
 import flowcontrol,dumper,os
-from AsiakasGUI import AsiakasGUI
+import AsiakasGUI
 #Tässä kaikki importit
 
 def main():
-    nimilista = {}
-    nimilista = dumper.load()
-    asiakasgui = AsiakasGUI(nimilista)
+    AsiakasGUI.main()
     flag1 = True
     while flag1 == True:
         flag2 = True

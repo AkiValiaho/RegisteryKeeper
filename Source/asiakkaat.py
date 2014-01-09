@@ -18,4 +18,4 @@ class asiakkaat:
     def set__toimi(self,toimi):
         self.__toimi = toimi
     def __str__(self):
-        return "Nimi: {0} Osasto: {1} Toimi: {2}".format(self.get__nimi(),self.get__osasto(),self.get__toimi())
+        return "Nimi: {0}\nKanta-asiakkuuskortti: {1}\nViimeisin käynti: {2}".format(self.get__nimi(),self.get__osasto(),self.get__toimi())

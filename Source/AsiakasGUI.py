@@ -1,44 +1,62 @@
-import tkinter,flowcontrol,dumper
+import tkinter,flowcontrol,dumper,asiakkaat,tkinter.messagebox
+
+
+def muokkaa_asiakasta(nimilista):
+    pass
+def poista_asiakas(nimilista):
+    pass
+def etsi_asiakas(nimilista):
+    pass
+def sulje_tallenna(nimilista):
+    pass
+
 class AsiakasGUI:
-    def __init__(self,nimilista):
-        #Konstruktori
-        self.mainwindow = tkinter.Tk()
-        #Tässä käynnistetään tkinter-moduulilla ohjelman käyttöliittymän pääikkuna
-        self.tiedotus = tkinter.Label(self.mainwindow, text='Asiakashallintaohjelmisto 1.0')
-        #Käytetään paddinglabel-tekstiä välin luomiseksi käyttöliittymään
-        self.paddinglabel = tkinter.Label(self.mainwindow, text='')
-        #Seuraavaksi tehdään checkbuttonit käyttöliittymän vaihtoehdoille
-        #Luodaan ensin variable
-        self.radiovalinta = tkinter.IntVar()
-        self.radiovalinta.set(0)
-        #Luodaan listboxi, johon conffataan erikseen scrollbar
-        listbox = tkinter.Listbox(self.mainwindow)
-        listbox.pack()
-        scrollbar = tkinter.Scrollbar(self.mainwindow)
-        scrollbar.pack(side='right', fill='y' )
-        #Testaus
-        
-        for i in nimilista:
-            listbox.insert('end',i)
-        #Yhdistetään sitten scrollbar toimimaan listboxin kanssa
-        listbox.config(yscrollcommand=scrollbar.set)
-        scrollbar.config(command=listbox.yview)
-        
-        
+        def __init__(self,nimilista,frame):
+            #Konstruktori
+            self.nimilista = nimilista
+            mainframe = tkinter.Frame(frame)
+            #Tässä käynnistetään tkinter-moduulilla ohjelman käyttöliittymän pääikkuna
+            self.tiedotus = tkinter.Label(frame, text='Asiakashallintaohjelmisto 1.0')
+            #Käytetään paddinglabel-tekstiä välin luomiseksi käyttöliittymään
+            self.paddinglabel = tkinter.Label(frame, text='')
+            #Luodaan listboxi, johon conffataan erikseen scrollbar
+            self.listbox = tkinter.Listbox(frame)
+            self.listbox.bind("<Double-Button-1>", self.showinfo)
+            self.listbox.pack(fill = 'x')
+            scrollbar = tkinter.Scrollbar(frame)
+            scrollbar.pack(side='right', fill='y' )
+            #Testaus
+            for i in nimilista:
+                    self.listbox.insert('end',i)
+            #Yhdistetään sitten scrollbar toimimaan listboxin kanssa
+            self.listbox.config(yscrollcommand=scrollbar.set)
+            scrollbar.config(command=self.listbox.yview)
+            self.buttoni1 = tkinter.Button(frame, text='Lisää asiakas', command=self.lisaa_asiakas).pack(anchor='w',fill = 'x')
+            self.buttoni2 = tkinter.Button(frame, text='Muokkaa listalla olevaa asiakasta', command=muokkaa_asiakasta).pack(anchor='w', fill = 'x')
+            self.buttoni3 = tkinter.Button(frame, text='Poista asiakas', command=poista_asiakas).pack(anchor='w',fill = 'x')
+            self.buttoni4 = tkinter.Button(frame, text='Etsi asiakas', command=etsi_asiakas).pack(anchor='w',fill = 'x')
+            self.buttoni5 = tkinter.Button(frame, text='Sulje ja tallenna', command=sulje_tallenna).pack(anchor='w',fill = 'x')
+        def lisaa_asiakas(self):
+            asiakas = asiakkaat.asiakkaat(input("Anna asiakkaan nimi: "),input("Kanta-asiakaskortti? "), input("Viimeisin käynti: "))
+            if self.nimilista != None:
+                if asiakas.get__nimi() in self.nimilista:
+                        print("Nimilistalla on jo henkilo {0}".format(asiakas.get__nimi()))
+                else:
+                        self.nimilista[asiakas.get__nimi()] = asiakas
+                        self.listbox.insert('end',asiakas.get__nimi())
+        def showinfo(self,asdf):
+            currentitem =self.listbox.get('active')
+            tkinter.messagebox.showinfo(self.nimilista[currentitem].get__nimi(), self.nimilista[currentitem].__str__())
 
 
-        #Luodaan BUTTONIT-niminen tietorakenne, jossa moniulotteisia alkioita
-        BUTTONIT = [("Listaa kaikki asiakkaat", 1), ("Lisää asiakas listaan",2),("Muokkaa listalla olevaa asiakasta",3),("Poista asiakkaan tiedot listalta",4),
-                    ("Etsi asiakasta listalta", 5),("Sulje ohjelma ja tallenna tiedot",6)
-                    ]
-        #Seuraaksi otetaan jokaisesta alkiosta data ja tehdään dataa vastaava buttoni
-        for teksti, arvo in BUTTONIT:
-            self.buttoni = tkinter.Radiobutton(self.mainwindow, text=teksti, variable=self.radiovalinta, value=arvo,indicatoron=0).pack(anchor='w')
-
-        #Tehdään metodi, jolla voidaan palauttaa pääohjelmaan radiovalinta-muuttujan senhetkinen arvo
-        def get__radiovalinta(self):
-            return self.radiovalinta
 
 
         #Tkinter-moduulin päälooppi
-        tkinter.mainloop()
+def main():
+    nimilista = {}
+    nimilista = dumper.load()
+    mainwindow = tkinter.Tk()
+    mainwindow.wm_title('Asiakashallintaohjelmisto')
+    #mainwindow.iconbitmap(default='transparent.ico') keksi uusi ikoni
+    asiakasGUI = AsiakasGUI(nimilista,mainwindow)
+    mainwindow.mainloop()
