@@ -1,0 +1,13 @@
+Tarkoituksenani olisi tehdä asiakashallintarekisteri, johon voi lisätä asiakastietoja.
+Erilaisia asiakastietoja voisi olla esimerkiksi:
+-Henkilön nimi (string)
+-Oliko henkilöllä kanta-asiakaskortti (string)
+-Henkilön ikä (int)
+-Henkilön viimeisimmän asioinnin päivämäärä (string)
+
+Henkilötiedot tallennetaan oliona ja henkilötieto-oliot säilötään erilliseen sanakirjaan,
+josta niitä voidaan hakea myöhemmin.
+
+Ohjelmaan sisällytetään graafinen käyttöliittymä, joten sanakirjaa käsittelevät ominaisuudet
+sijoitetaan metodeiksi graafisen käyttöliittymän olioon.
+
