@@ -1,15 +1,5 @@
 import tkinter,flowcontrol,dumper,asiakkaat,tkinter.messagebox
 
-
-def muokkaa_asiakasta(nimilista):
-    pass
-def poista_asiakas(nimilista):
-    pass
-def etsi_asiakas(nimilista):
-    pass
-def sulje_tallenna(nimilista):
-    pass
-
 class popupWindow:
     def __init__(self,nimilista,currentitem):
         self.mainframe = tkinter.Toplevel()
@@ -30,7 +20,7 @@ class popupWindow:
     def quit(self):
         if self.e.get() != '':
             self.nimilista[self.currentitem].set__nimi(self.e.get())
-            
+
         if self.radiobuttonvariable.get() == 1:
             self.nimilista[self.currentitem].set__osasto('Kyllä')
         if self.radiobuttonvariable.get() == 2:
@@ -98,7 +88,7 @@ class AsiakasGUI:
             self.buttoni1 = tkinter.Button(frame, text='Lisää asiakas', command=self.popupnewcustomer).pack(anchor='w',fill = 'x')
             self.buttoni2 = tkinter.Button(frame, text='Muokkaa listalla olevaa asiakasta', command=self.popup).pack(anchor='w', fill = 'x')
             self.buttoni3 = tkinter.Button(frame, text='Poista asiakas', command=self.deletecustomer).pack(anchor='w',fill = 'x')
-            self.buttoni4 = tkinter.Button(frame, text='Etsi asiakas', command=etsi_asiakas).pack(anchor='w',fill = 'x')
+            self.buttoni4 = tkinter.Button(frame, text='Etsi asiakas', command=self.findcustomer).pack(anchor='w',fill = 'x')
 
         def showinfo(self,asdf):
             currentitem =self.listbox.get('active')
@@ -129,13 +119,20 @@ class AsiakasGUI:
                     self.listbox.delete(0,'end')
                     del self.nimilista[currentitem]
                     for key in sorted(self.nimilista):
-                        self.listbox.insert('end',key)
+                        self.listbox.insert('end' ,key)
             else:
                 tkinter.messagebox.showinfo('Virhe','Ei asiakkaita joita poistaa!')
         def eventhandler(self):
             if tkinter.messagebox.askokcancel('Lopeta?', 'Haluatko lopettaa ja tallentaa muutokset?'):
                 dumper.dump(self.nimilista)
                 self.mainframe.quit() #Quit pysäyttää suoraan KAIKKI widgetit
+
+        def findcustomer(self):
+            pass
+            #Tee loppuun
+            #Funktiolle täytyy luultavasti kehittää oma popuppi? En ole täysin varma pystyykö noita muita käyttämään hyväksi siten, että ne eivät paketoidu '
+            #tähän instanssiin.
+            #Lisätään version controlliin kun ehditään tehdä loppuun, ehkäpä jo
 
 
 
@@ -150,3 +147,4 @@ def main():
     asiakasGUI = AsiakasGUI(nimilista,mainwindow)
     mainwindow.protocol("WM_DELETE_WINDOW",asiakasGUI.eventhandler)
     mainwindow.mainloop()
+main()
