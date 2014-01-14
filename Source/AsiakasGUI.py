@@ -65,8 +65,6 @@ class uusiasiakas:
 
 class AsiakasGUI:
         def __init__(self,nimilista,frame):
-            #Konstruktori
-
             self.nimilista = nimilista
             self.mainframe = tkinter.Frame(frame)
             #Tässä käynnistetään tkinter-moduulilla ohjelman käyttöliittymän pääikkuna
@@ -129,12 +127,6 @@ class AsiakasGUI:
 
         def findcustomer(self):
             pass
-            #Tee loppuun
-            #Funktiolle täytyy luultavasti kehittää oma popuppi? En ole täysin varma pystyykö noita muita käyttämään hyväksi siten, että ne eivät paketoidu '
-            #tähän instanssiin.
-            #Lisätään version controlliin kun ehditään tehdä loppuun, ehkäpä jo
-
-
 
 def main():
     nimilista = {}
