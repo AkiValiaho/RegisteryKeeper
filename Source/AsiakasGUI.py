@@ -1,5 +1,4 @@
 import tkinter,flowcontrol,dumper,asiakkaat,tkinter.messagebox
-
 class popupWindow:
     def __init__(self,nimilista,currentitem):
         self.mainframe = tkinter.Toplevel()
@@ -54,6 +53,7 @@ class uusiasiakas:
         if self.radiobuttonvariable.get() == 0 or self.e.get() == '':
             pass
 
+
         else:
             self.asiakas = asiakkaat.asiakkaat(self.e.get(),oikeavalinta,self.e3.get())
             self.nimilista[self.asiakas.get__nimi()] = self.asiakas
@@ -65,11 +65,14 @@ class uusiasiakas:
 
 class AsiakasGUI:
         def __init__(self,nimilista,frame):
+            #Konstruktorimetodi, joka ottaa vastaan attribuutit nimilista ja frame.
+            #Nimilista sen takia, että kyseisellä listalla olevia olioita voidaan moduulissa käsitellä.
+            #frame taas sisältää tkinter-mainloopin identiteetin.
             self.nimilista = nimilista
             self.mainframe = tkinter.Frame(frame)
             #Tässä käynnistetään tkinter-moduulilla ohjelman käyttöliittymän pääikkuna
             self.tiedotus = tkinter.Label(frame, text='Asiakashallintaohjelmisto 1.0')
-            #Käytetään paddinglabel-tekstiä välin luomiseksi käyttöliittymään
+            #Luodaan tässä ensin Labeli
             self.paddinglabel = tkinter.Label(frame, text='')
             #Luodaan listboxi, johon conffataan erikseen scrollbar
             self.listbox = tkinter.Listbox(frame)
@@ -86,7 +89,7 @@ class AsiakasGUI:
             self.buttoni1 = tkinter.Button(frame, text='Lisää asiakas', command=self.popupnewcustomer).pack(anchor='w',fill = 'x')
             self.buttoni2 = tkinter.Button(frame, text='Muokkaa listalla olevaa asiakasta', command=self.popup).pack(anchor='w', fill = 'x')
             self.buttoni3 = tkinter.Button(frame, text='Poista asiakas', command=self.deletecustomer).pack(anchor='w',fill = 'x')
-            self.buttoni4 = tkinter.Button(frame, text='Etsi asiakas', command=self.findcustomer).pack(anchor='w',fill = 'x')
+            self.buttoni4 = tkinter.Button(frame, text='Etsi asiakas', command=self.searchcustomer).pack(anchor='w',fill = 'x')
 
         def showinfo(self,asdf):
             currentitem =self.listbox.get('active')
@@ -125,8 +128,28 @@ class AsiakasGUI:
                 dumper.dump(self.nimilista)
                 self.mainframe.quit() #Quit pysäyttää suoraan KAIKKI widgetit
 
-        def findcustomer(self):
-            pass
+        def searchcustomer(self):
+            self.inputastringbox = tkinter.Toplevel()
+            self.label = tkinter.Label(self.inputastringbox,text="Anna etsimäsi henkilön nimi tai osa siitä:").pack()
+            self.entrybox = tkinter.Entry(self.inputastringbox)
+            self.entrybox.pack()
+            self.okbutton = tkinter.Button(self.inputastringbox,text='Ok',command=self.quit).pack()
+        def quit(self):
+            if self.entrybox.get() in self.nimilista:
+                newdict = {}
+                tkinter.messagebox.showinfo('Asiakas löydetty','Löydettiin asiakas: {0}'.format(self.entrybox.get()))
+                newdict[self.entrybox.get()] = self.nimilista[self.entrybox.get()]
+                del self.nimilista[self.entrybox.get()]
+                self.listbox.delete(0,'end')
+                self.listbox.insert(0,newdict[self.entrybox.get()].get__nimi())
+                for key in sorted(self.nimilista):
+                        self.listbox.insert('end' ,key)
+                self.listbox.selection_set(first=0)
+                self.nimilista[self.entrybox.get()] = newdict[self.entrybox.get()]
+
+
+            self.inputastringbox.destroy()
+
 
 def main():
     nimilista = {}
