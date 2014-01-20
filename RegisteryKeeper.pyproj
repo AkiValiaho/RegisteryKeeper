@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d3fb88d4-73eb-4712-9f9e-fdd3508bbc74</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>RegisteryKeeper.py</StartupFile>
+    <StartupFile>AsiakasGUI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,9 +22,27 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AsiakasGUI.py" />
+    <Compile Include="Asiakashallintaohjelmisto.py" />
+    <Compile Include="asiakkaat.py" />
     <Compile Include="dumper.py" />
+    <Compile Include="flowcontrol.py" />
     <Compile Include="henkilo.py" />
-    <Compile Include="RegisteryKeeper.py" />
+    <Compile Include="Source\Asiakashallintaohjelmisto.py" />
+    <Compile Include="Source\asiakkaat.py" />
+    <Compile Include="Source\dumper.py" />
+    <Compile Include="Source\flowcontrol.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AkiVäliahovaatimusmäärittely.txt" />
+    <Content Include="dokumentaatio.txt" />
+    <Content Include="osoitteet.dat" />
+    <Content Include="Source\AkiVäliahovaatimusmäärittely.txt" />
+    <Content Include="Source\dokumentaatio.txt" />
+    <Content Include="Source\osoitteet.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Source\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

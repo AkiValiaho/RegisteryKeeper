@@ -1,17 +1,30 @@
 import pickle
 
-def dumpdictionary(osoitteet):
-    with open('osoitteet.dat','wb') as file: #We dump the dictionary with wb mode to overwrite it
-        pickle.dump(osoitteet,file)
 
-def loaddictionary():
+def dump(nimilista):
+    with open("nimet.txt","wb") as file:
+        pickle.dump(nimilista,file)
+def load():
+    nimilista = {}
     try:
-        with open('osoitteet.dat','rb') as file:
-            osoitteet =pickle.load(file)
-            if osoitteet == None:
+        with open("nimet.txt","rb") as file:
+            nimilista = pickle.load(file)
+            if nimilista == None:
                 return {}
-            return osoitteet
+            else:
+                return nimilista
     except IOError:
         return {}
     except EOFError:
         return {}
+def specificload(file):
+    nimilista = {}
+    try:
+        with open(file,"rb") as file:
+            nimilista = pickle.load(file)
+            return nimilista
+    except IOError:
+        return {}
+    except EOFError:
+        return {}
+

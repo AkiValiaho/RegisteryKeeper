@@ -5,6 +5,18 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RegisteryKeeper", "RegisteryKeeper.pyproj", "{D3FB88D4-73EB-4712-9F9E-FDD3508BBC74}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76C11418-1BD8-4347-8BAB-88C36DB34173}"
+	ProjectSection(SolutionItems) = preProject
+		Source\AkiVäliahovaatimusmäärittely.txt = Source\AkiVäliahovaatimusmäärittely.txt
+		Source\AsiakasGUI.py = Source\AsiakasGUI.py
+		Source\Asiakashallintaohjelmisto.py = Source\Asiakashallintaohjelmisto.py
+		Source\asiakkaat.py = Source\asiakkaat.py
+		Source\dokumentaatio.txt = Source\dokumentaatio.txt
+		Source\dumper.py = Source\dumper.py
+		Source\flowcontrol.py = Source\flowcontrol.py
+		Source\osoitteet.dat = Source\osoitteet.dat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
