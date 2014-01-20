@@ -1,4 +1,4 @@
-import tkinter,flowcontrol,dumper,asiakkaat,tkinter.messagebox
+import tkinter,flowcontrol,dumper,asiakkaat,tkinter.messagebox,tkinter.simpledialog
 class popupWindow:
     def __init__(self,nimilista,currentitem):
         self.mainframe = tkinter.Toplevel()
@@ -39,7 +39,7 @@ class uusiasiakas:
         self.e.pack()
         self.label1 = tkinter.Label(self.mainframe,text='Kanta-asiakaskortti?').pack()
         self.radiobutton1 = tkinter.Radiobutton(self.mainframe,text='Kyllä',variable=self.radiobuttonvariable,value = 1,indicatoron=0).pack()
-        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack()
+        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='   Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack()
         self.label2 = tkinter.Label(self.mainframe,text='Viimeisin käynti:').pack()
         self.e3=tkinter.Entry(self.mainframe)
         self.e3.pack()
@@ -146,9 +146,16 @@ class AsiakasGUI:
                         self.listbox.insert('end' ,key)
                 self.listbox.selection_set(first=0)
                 self.nimilista[self.entrybox.get()] = newdict[self.entrybox.get()]
-
-
             self.inputastringbox.destroy()
+        def newlistbox(self):
+            dumper.dump(self.nimilista)
+            self.nimilista = {}
+            a = tkinter.simpledialog.askstring('Anna etsittävän tiedoston nimi', 'Tiedoston nimi:')
+            self.nimilista = dumper.specificload(a)
+            self.listbox.delete(0,'end')
+            for i in self.nimilista:
+                self.listbox.insert('end',i)
+
 
 
 def main():
@@ -156,10 +163,12 @@ def main():
     nimilista = dumper.load()
     mainwindow = tkinter.Tk()
     mainwindow.wm_title('Asiakashallintaohjelmisto')
-
+    menubar = tkinter.Menu(mainwindow)
 
     #mainwindow.iconbitmap(default='transparent.ico') keksi uusi ikoni
     asiakasGUI = AsiakasGUI(nimilista,mainwindow)
+    menubar.add_command(label='Lataa',command=asiakasGUI.newlistbox)
     mainwindow.protocol("WM_DELETE_WINDOW",asiakasGUI.eventhandler)
+    mainwindow.config(menu=menubar)
     mainwindow.mainloop()
 main()

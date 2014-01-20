@@ -1,0 +1,28 @@
+Aki Väliaho
+Palautan vaatimusmäärittelyn
+
+Aiheen määrittely:
+Tarkoituksenani olisi tehdä asiakashallintarekisteri, johon voi lisätä asiakastietoja.
+Erilaisia asiakastietoja voisi olla esimerkiksi:
+-Henkilön nimi (string)
+-Oliko henkilöllä kanta-asiakaskortti (string)
+-Henkilön ikä (int)
+-Henkilön viimeisimmän asioinnin päivämäärä (string)
+
+Henkilötiedot tallennetaan oliona ja henkilötieto-oliot säilötään erilliseen sanakirjaan,
+josta niiät voidaan hakea myöhemmin.
+
+Ohjelmaan sisällytetään graafinen käyttöliittymä, joten sanakirjaa käsittelevät ominaisuudet
+sijoitetaan metodeiksi graafisen käyttöliittymän olioon.
+
+
+
+Vaatimusmäärittely:
+Asiakas haluaa ohjelman, jonka tarkoituksena on ylläpitää asiakastietoja. Ohjelmasta täytyy saada lista asiakkaiden nimistä, heidän
+iästään ja sukupuolestaan, käyttikö asiakas ostotapahtumassaan kanta-asiakaskorttia sekä asiakkaan viimeisin käyntipäivämäärä. Asiakkaiden
+tiedot muuttuvat usein, heitä tulee lisää ja poistuu joten ohjelman täytyy tarjota asiakkaanmuokkaustoiminto, lisäys- ja poistotoiminto,
+sekä suurten listojen käsittelyä helpottava etsi-toiminto. Ohjelmassa tulisi olla graafinen käyttöliittymä näiden toimintojen käyttäjäystäväl-
+listä käyttöä varten. Ohjelma tarvitsee toiminnon, jolla voidaan tallentaa asiakastiedot tiedostoon ja sitten lukea ne ohjelmaan
+käynnistyksen ohessa. Tulostuksen täytyy onnistua sekä tiedostoon, että näytölle. Asiakkaiden tietorakenteiden tulee olla muodoltaan olio-tyyppisiä.
+Ohjelmointivälineenä käytetään Eclipse-kehitysympäristöä ja ohjelma on toteutettu Python-kielellä.
+
