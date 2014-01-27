@@ -4,6 +4,9 @@ import pickle
 def dump(nimilista):
     with open("nimet.txt","wb") as file:
         pickle.dump(nimilista,file)
+def specificdump(nimilista, filename):
+    with open(filename,'wb') as file:
+        pickle.dump(nimilista,file)
 def load():
     nimilista = {}
     try:

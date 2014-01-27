@@ -1,4 +1,4 @@
-import tkinter,flowcontrol,dumper,asiakkaat,tkinter.messagebox,tkinter.simpledialog
+import tkinter,dumper,asiakkaat,tkinter.messagebox,tkinter.simpledialog
 class popupWindow:
     def __init__(self,nimilista,currentitem):
         self.mainframe = tkinter.Toplevel()
@@ -11,7 +11,7 @@ class popupWindow:
         self.label1 = tkinter.Label(self.mainframe,text='Kanta-asiakaskortti?').pack()
         self.radiobuttonvariable = tkinter.IntVar()
         self.radiobutton1 = tkinter.Radiobutton(self.mainframe,text='Kyllä',variable=self.radiobuttonvariable,value = 1,indicatoron=0).pack()
-        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack()
+        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack(ipadx=5)
         self.label2 = tkinter.Label(self.mainframe,text='Viimeisin käynti:').pack()
         self.e3=tkinter.Entry(self.mainframe)
         self.e3.pack()
@@ -29,17 +29,19 @@ class popupWindow:
         self.mainframe.destroy()
     def get__mainframeidentity(self):
         return self.mainframe
+#Täytyy siirtää tämä setti kokonaan uuteen moduuliin-> MVC-mallin juttuja siis
 class uusiasiakas:
     def __init__(self,nimilista):
         self.mainframe = tkinter.Toplevel()
         self.nimilista = nimilista
         self.radiobuttonvariable = tkinter.IntVar()
+        self.welcomelabel = tkinter.Label(self.mainframe,text='Lisäät tällähetkellä uutta henkilöä').pack()
         self.label = tkinter.Label(self.mainframe,text='Henkilön nimi').pack()
         self.e=tkinter.Entry(self.mainframe)
         self.e.pack()
         self.label1 = tkinter.Label(self.mainframe,text='Kanta-asiakaskortti?').pack()
         self.radiobutton1 = tkinter.Radiobutton(self.mainframe,text='Kyllä',variable=self.radiobuttonvariable,value = 1,indicatoron=0).pack()
-        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='   Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack()
+        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack()
         self.label2 = tkinter.Label(self.mainframe,text='Viimeisin käynti:').pack()
         self.e3=tkinter.Entry(self.mainframe)
         self.e3.pack()
@@ -147,20 +149,21 @@ class AsiakasGUI:
                 self.listbox.selection_set(first=0)
                 self.nimilista[self.entrybox.get()] = newdict[self.entrybox.get()]
             self.inputastringbox.destroy()
-        def newlistbox(self):
-            dumper.dump(self.nimilista)
-            self.nimilista = {}
-            a = tkinter.simpledialog.askstring('Anna etsittävän tiedoston nimi', 'Tiedoston nimi:')
-            self.nimilista = dumper.specificload(a)
-            if self.nimilista == {}:
-                tkinter.messagebox.showinfo('File not found','Specific file not found')
-                self.nimilista = dumper.load()
-            self.listbox.delete(0,'end')
-            for i in self.nimilista:
-                self.listbox.insert('end',i)
-
-
-
+        def newlistbox(self,choice):
+            if choice == 1:
+                dumper.dump(self.nimilista)
+                self.nimilista = {}
+                a = tkinter.simpledialog.askstring('Anna etsittävän tiedoston nimi', 'Tiedoston nimi:')
+                self.nimilista = dumper.specificload(a)
+                if self.nimilista == {}:
+                    tkinter.messagebox.showinfo('File not found','Specific file not found')
+                    self.nimilista = dumper.load()
+                self.listbox.delete(0,'end')
+                for i in self.nimilista:
+                    self.listbox.insert('end',i)
+            if choice == 2:
+                a = tkinter.simpledialog.askstring('Anna tallennettavan tiedoston nimi','Tiedoston nimi: ')
+                dumper.specificdump(self.nimilista,a)
 def main():
     nimilista = {}
     nimilista = dumper.load()
@@ -170,7 +173,8 @@ def main():
 
     #mainwindow.iconbitmap(default='transparent.ico') keksi uusi ikoni
     asiakasGUI = AsiakasGUI(nimilista,mainwindow)
-    menubar.add_command(label='Lataa',command=asiakasGUI.newlistbox)
+    menubar.add_command(label='Lataa',command=lambda: asiakasGUI.newlistbox(1))
+    menubar.add_command(label='Tallenna',command=lambda: asiakasGUI.newlistbox(2))
     mainwindow.protocol("WM_DELETE_WINDOW",asiakasGUI.eventhandler)
     mainwindow.config(menu=menubar)
     mainwindow.mainloop()
