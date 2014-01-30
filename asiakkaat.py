@@ -1,5 +1,3 @@
-
-
 class asiakkaat:
     def __init__(self,nimi, osasto, toimi):
         self.__nimi = nimi

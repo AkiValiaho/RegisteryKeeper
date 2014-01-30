@@ -29,7 +29,8 @@ class popupWindow:
         self.mainframe.destroy()
     def get__mainframeidentity(self):
         return self.mainframe
-#Täytyy siirtää tämä setti kokonaan uuteen moduuliin-> MVC-mallin juttuja siis
+
+
 class uusiasiakas:
     def __init__(self,nimilista):
         self.mainframe = tkinter.Toplevel()
@@ -64,6 +65,7 @@ class uusiasiakas:
         return self.mainframe
     def asiakascurrentidentity(self):
         return self.asiakas
+
 
 class AsiakasGUI:
         def __init__(self,nimilista,frame):
