@@ -5,28 +5,50 @@ class popupWindow:
         self.nimilista = nimilista
         self.currentitem = currentitem
         self.label1 = tkinter.Label(self.mainframe,text='Muokkaat tällä hetkellä henkilöä: {0}'.format(self.currentitem)).pack()
+        self.radiobuttonvariable = tkinter.IntVar()
+        self.sukupuolivariable = tkinter.StringVar()
         self.label = tkinter.Label(self.mainframe,text='Henkilön nimi').pack()
         self.e=tkinter.Entry(self.mainframe)
         self.e.pack()
+        self.radiobuttonsukupuoli1 = tkinter.Radiobutton(self.mainframe, variable= self.sukupuolivariable,text='Mies',value = 'Mies',indicatoron= 0).pack()
+        self.radiobuttonsukupuoli2 = tkinter.Radiobutton(self.mainframe, variable= self.sukupuolivariable,text='Nainen',value = 'Nainen',indicatoron= 0).pack()
         self.label1 = tkinter.Label(self.mainframe,text='Kanta-asiakaskortti?').pack()
-        self.radiobuttonvariable = tkinter.IntVar()
         self.radiobutton1 = tkinter.Radiobutton(self.mainframe,text='Kyllä',variable=self.radiobuttonvariable,value = 1,indicatoron=0).pack()
-        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack(ipadx=5)
+        self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack()
+        self.ikalabel = tkinter.Label(self.mainframe, text='Ikä').pack()
+        self.ikaentry = tkinter.Entry(self.mainframe)
+        self.ikaentry.pack()
         self.label2 = tkinter.Label(self.mainframe,text='Viimeisin käynti:').pack()
         self.e3=tkinter.Entry(self.mainframe)
         self.e3.pack()
         self.okbutton = tkinter.Button(self.mainframe,text='Ok',command=self.quit).pack()
     def quit(self):
+        anypasses = 0
         if self.e.get() != '':
             self.nimilista[self.currentitem].set__nimi(self.e.get())
 
         if self.radiobuttonvariable.get() == 1:
-            self.nimilista[self.currentitem].set__osasto('Kyllä')
+            self.nimilista[self.currentitem].set__kanta_asiakas('Kyllä')
         if self.radiobuttonvariable.get() == 2:
-            self.nimilista[self.currentitem].set__osasto('Ei')
+            self.nimilista[self.currentitem].set__kanta_asiakas('Ei')
+        if self.sukupuolivariable.get() == 'Mies' or self.sukupuolivariable.get() == 'Nainen':
+            self.nimilista[self.currentitem].set__sukupuoli(self.sukupuolivariable.get())
+        if self.ikaentry.get() != 0:
+            testeri = self.ikaentry.get()
+            try:
+                anypasses = 0
+                testeri = int(testeri)
+                testeri += 1
+                self.nimilista[self.currentitem].set__ika(int(self.ikaentry.get()))
+            except ValueError:
+                anypasses = 1
+
         if self.e3.get() != '':
-            self.nimilista[self.currentitem].set__toimi(self.e3.get())
-        self.mainframe.destroy()
+            self.nimilista[self.currentitem].set__kaynti(self.e3.get())
+        if anypasses == 1:
+            pass
+        else:
+            self.mainframe.destroy()
     def get__mainframeidentity(self):
         return self.mainframe
 
@@ -36,13 +58,19 @@ class uusiasiakas:
         self.mainframe = tkinter.Toplevel()
         self.nimilista = nimilista
         self.radiobuttonvariable = tkinter.IntVar()
+        self.sukupuolivariable = tkinter.StringVar()
         self.welcomelabel = tkinter.Label(self.mainframe,text='Lisäät tällähetkellä uutta henkilöä').pack()
         self.label = tkinter.Label(self.mainframe,text='Henkilön nimi').pack()
         self.e=tkinter.Entry(self.mainframe)
         self.e.pack()
+        self.radiobuttonsukupuoli1 = tkinter.Radiobutton(self.mainframe, variable= self.sukupuolivariable,text='Mies',value = 'Mies',indicatoron= 0).pack()
+        self.radiobuttonsukupuoli2 = tkinter.Radiobutton(self.mainframe, variable= self.sukupuolivariable,text='Nainen',value = 'Nainen',indicatoron= 0).pack()
         self.label1 = tkinter.Label(self.mainframe,text='Kanta-asiakaskortti?').pack()
         self.radiobutton1 = tkinter.Radiobutton(self.mainframe,text='Kyllä',variable=self.radiobuttonvariable,value = 1,indicatoron=0).pack()
         self.radiobutton2 = tkinter.Radiobutton(self.mainframe,text='Ei',variable=self.radiobuttonvariable, value = 2,indicatoron=0).pack()
+        self.ikalabel = tkinter.Label(self.mainframe, text='Ikä').pack()
+        self.ikaentry = tkinter.Entry(self.mainframe)
+        self.ikaentry.pack()
         self.label2 = tkinter.Label(self.mainframe,text='Viimeisin käynti:').pack()
         self.e3=tkinter.Entry(self.mainframe)
         self.e3.pack()
@@ -55,10 +83,13 @@ class uusiasiakas:
             oikeavalinta = 'Ei'
         if self.radiobuttonvariable.get() == 0 or self.e.get() == '':
             pass
+        if self.sukupuolivariable.get() == '' or self.e.get() == '' or self.e3.get() == 0 or self.ikaentry.get() == 0:
+            pass
+
 
 
         else:
-            self.asiakas = asiakkaat.asiakkaat(self.e.get(),oikeavalinta,self.e3.get())
+            self.asiakas = asiakkaat.asiakkaat(self.e.get(),oikeavalinta,self.e3.get(),self.ikaentry.get(),self.sukupuolivariable.get())
             self.nimilista[self.asiakas.get__nimi()] = self.asiakas
             self.mainframe.destroy()
     def get__mainframeidentity(self):
